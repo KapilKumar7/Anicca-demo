@@ -6,7 +6,7 @@ import {Dimensions} from 'react-native';
 const screenWidth = Dimensions.get('window').width;
 
 const Chart = ({logs, dataToShow}) => {
-  console.log(' in chart are ' + logs.length + ' ' + dataToShow);
+  // console.log(' in chart are ' + logs.length + ' ' + dataToShow);
   if (!logs || logs.length === 0) {
     return (
       <View style={styles.container}>
@@ -15,11 +15,19 @@ const Chart = ({logs, dataToShow}) => {
     );
   }
 
-  const dates = logs.map(log => log.date.getDate());
   const awarenessData = logs.map(log => log[dataToShow]);
+  const labels = logs.map((log, index) => log.date.getDate());
+
+  let filteredLabels = labels;
+  if (logs.length > 20) {
+    // Filter labels to show every 2nd label
+    filteredLabels = labels.map((label, index) =>
+      index % 2 === 0 ? label : '',
+    );
+  }
 
   const chartData = {
-    labels: dates.map(date => date.toString()),
+    labels: filteredLabels,
     datasets: [
       {
         data: awarenessData,

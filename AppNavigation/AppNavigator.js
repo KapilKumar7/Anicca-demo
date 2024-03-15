@@ -7,6 +7,9 @@ import HomeScreen from '../HomeScreen';
 import Chart from './Chart';
 import TestScreen from '../screens/TestScreen';
 import Splash from '../screens/Splash';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -14,9 +17,26 @@ const Tab = createMaterialBottomTabNavigator();
 const MainNavigator = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Calender" component={CalenderScreen} />
-      <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      {/* <Tab.Screen name="TestScreen" component={TestScreen} /> */}
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color}) => (
+            <Ionicons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Calender"
+        component={CalenderScreen}
+        options={{
+          tabBarIcon: ({color}) => (
+            <Ionicons name="calendar" color={color} size={26} />
+          ),
+        }}
+      />
+      {/* Add more Tab.Screen components as needed */}
     </Tab.Navigator>
   );
 };

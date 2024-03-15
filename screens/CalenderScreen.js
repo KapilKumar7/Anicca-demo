@@ -4,6 +4,7 @@ import {Calendar} from 'react-native-calendars';
 import Chart from '../AppNavigation/Chart';
 import {AniccaLog} from '../schema/schema';
 import Realm from 'realm';
+import {useFocusEffect} from '@react-navigation/native';
 
 const CalenderScreen = () => {
   const [selectedMonth, setSelectedMonth] = useState('');
@@ -21,26 +22,53 @@ const CalenderScreen = () => {
       .filtered(`date >= $0 AND date < $1`, startDate, endDate);
 
     const logsArray = Array.from(logs);
-    return logsArray;
+
+    // Create a map to store the sum and count of records for each day
+    const dailyRecordsMap = new Map();
+
+    // Populate dailyRecordsMap with sum and count of records for each day
+    logsArray.forEach(log => {
+      const dateKey = log.date.toISOString().split('T')[0];
+      if (!dailyRecordsMap.has(dateKey)) {
+        dailyRecordsMap.set(dateKey, {sumAnicca: 0, sumAwareness: 0, count: 0});
+      }
+      dailyRecordsMap.get(dateKey).sumAnicca += log.anicca;
+      dailyRecordsMap.get(dateKey).sumAwareness += log.awareness;
+      dailyRecordsMap.get(dateKey).count++;
+    });
+
+    // Calculate the average for each day
+    const averagedLogs = Array.from(dailyRecordsMap).map(
+      ([date, {sumAnicca, sumAwareness, count}]) => ({
+        date: new Date(date),
+        anicca: sumAnicca / count,
+        awareness: sumAwareness / count,
+      }),
+    );
+
+    return averagedLogs;
   };
 
-  useEffect(() => {
-    const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1;
-    setSelectedMonth(currentMonth);
-    setLogs(logsByMonth(currentMonth));
+  useFocusEffect(
+    React.useCallback(() => {
+      // This will be called when the screen gains focus
+      const currentDate = new Date();
+      const currentMonth = currentDate.getMonth() + 1;
+      setSelectedMonth(currentMonth);
+      setLogs(logsByMonth(currentMonth));
+      markDatesInCalendar(logsByMonth(currentMonth));
 
-    // Mark dates based on logs
-    markDatesInCalendar(logsByMonth(currentMonth));
-  }, []);
+      return () => {
+        // Cleanup function (optional)
+      };
+    }, []),
+  );
 
   const markDatesInCalendar = logsArray => {
     const markedDatesObject = {};
     logsArray.forEach(log => {
       const date = log.date.toISOString().split('T')[0];
       markedDatesObject[date] = {
-        // marked: true,
-        // dotColor: 'orange',
         activeOpacity: 1,
         selectedColor: 'green',
         selected: true,
