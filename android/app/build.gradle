@@ -76,9 +76,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.anicca"
+    namespace "com.oodmind.anicca"
     defaultConfig {
-        applicationId "com.anicca"
+        applicationId "com.oodmind.anicca"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

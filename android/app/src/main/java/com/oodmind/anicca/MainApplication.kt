@@ -1,4 +1,4 @@
-package com.anicca
+package com.oodmind.anicca
 
 import android.app.Application
 import com.facebook.react.PackageList

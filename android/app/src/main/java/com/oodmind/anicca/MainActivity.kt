@@ -1,4 +1,4 @@
-package com.anicca
+package com.oodmind.anicca
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
