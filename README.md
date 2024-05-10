@@ -1,3 +1,12 @@
+### Project Anicca For Serious Vipassana Meditator
+![screen_1](https://github.com/KapilKumar7/Anicca-demo/assets/100344844/828a357e-196a-44c6-97a9-0baa775ee010)
+
+![screen_2](https://github.com/KapilKumar7/Anicca-demo/assets/100344844/a0bdf4e7-71c1-4a0f-a32e-abc7914bf978)
+
+![screen_3](https://github.com/KapilKumar7/Anicca-demo/assets/100344844/eab412ec-78f7-416b-91e2-2a38a3c8966e)
+
+![screen_4](https://github.com/KapilKumar7/Anicca-demo/assets/100344844/d466deb6-a8ab-4d2c-af8d-2b24dd10b462)
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
